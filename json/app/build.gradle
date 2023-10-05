@@ -1,0 +1,40 @@
+plugins {
+    id 'application'
+    id 'io.freefair.lombok' version '8.3'
+}
+
+repositories {
+    // Use Maven Central for resolving dependencies.
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation 'junit:junit:4.13.2'
+
+    implementation 'com.google.guava:guava:31.1-jre'
+
+    // dropwizard
+    implementation "io.dropwizard:dropwizard-core:4.0.2"
+    implementation "io.dropwizard:dropwizard-views:4.0.2"
+    implementation "io.dropwizard:dropwizard-views-freemarker:4.0.2"
+    implementation "ru.vyarus:dropwizard-guicey:7.0.1"
+}
+
+application {
+    // Define the main class for the application.
+    mainClass = 'view.example.json.JsonEgApplication'
+}
+
+jar {
+    duplicatesStrategy(DuplicatesStrategy.EXCLUDE)
+
+    manifest {
+        attributes 'Main-Class': 'view.example.json.JsonEgApplication'
+    }
+
+    from {
+        configurations.runtimeClasspath.collect {
+            it.isDirectory() ? it : zipTree(it)
+        }
+    }
+}
