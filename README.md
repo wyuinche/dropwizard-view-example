@@ -1,0 +1,1 @@
+# dropwizard-view-example
